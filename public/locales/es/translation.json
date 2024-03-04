@@ -1,5 +1,10 @@
 {
     "greeting": {
         "hello": "Hola, bienvenido!"
+    },
+    "login": "Iniciar sesión",
+    "user": {
+        "email": "Correo electrónico",
+        "password": "Contraseña"
     }
 }
