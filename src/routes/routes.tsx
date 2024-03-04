@@ -3,7 +3,7 @@ import { NoAuthRoutes } from "./NoAuthRoutes";
 import { AuthRoutes } from "./AuthRoutes";
 
 
-const loggin = true; 
+const loggin = false; 
 const routes = createBrowserRouter(!loggin ? NoAuthRoutes : AuthRoutes)
 
 export default routes

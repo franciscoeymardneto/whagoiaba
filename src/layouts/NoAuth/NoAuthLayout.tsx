@@ -1,6 +1,9 @@
+import { useTranslation } from "react-i18next"
+
 const NoAuthLayout = (): JSX.Element => {
+    const {t} = useTranslation()
     return(
-        <p>No auth Layout</p>
+        <p>{t('greeting.hello')}</p>
     )
 }
 
