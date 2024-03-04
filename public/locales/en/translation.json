@@ -6,5 +6,8 @@
     "user": {
         "email": "Email",
         "password": "Password"
+    },
+    "errors": {
+        "invalidEmail": "Invalid email, please enter a valid email"
     }
 }

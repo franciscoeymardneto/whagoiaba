@@ -4,10 +4,14 @@ import eyeIcon from '/icons/input/eye.svg'
 import closedeyeIcon from '/icons/input/closedeye.svg'
 
 type PasswordInputProps = {
-    placeholder?: string
+    placeholder?: string,
+    value?: string
+    onChange?: (value: string)=> void
 }
 const PasswordInput: FC<PasswordInputProps> = ({
-    placeholder
+    placeholder,
+    onChange,
+    value
 }) => {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +26,8 @@ const PasswordInput: FC<PasswordInputProps> = ({
                 type={showPassword ? "text" :"password"}
                 name="password"
                 placeholder={placeholder}
-                id=""
+                value={value}
+                onChange={(e) => onChange? onChange(e.target.value) : undefined}
             />
             <div
                 className="absolute inset-y-0 right-0 px-4 py-2"

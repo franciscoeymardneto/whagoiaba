@@ -1,11 +1,17 @@
 import { FC } from "react"
+import { useTranslation } from "react-i18next"
 
 type MailInputProps = {
     placeholder?: string
+    value?: string
+    onChange?: (value: string)=> void
 }
 const MailInput: FC<MailInputProps> = ({
-    placeholder
+    placeholder,
+    onChange,
+    value
 }) => {
+    const { t } = useTranslation()
     return (
         <div>
             <input
@@ -13,7 +19,10 @@ const MailInput: FC<MailInputProps> = ({
                 type="email"
                 name="email"
                 placeholder={placeholder}
-                id=""
+                lang="en"
+                onInvalid={(e) => e.currentTarget.setCustomValidity(t('errors.invalidEmail'))}
+                value={value}
+                onChange={(e) => onChange? onChange(e.target.value) : undefined}
             />
         </div>
     )

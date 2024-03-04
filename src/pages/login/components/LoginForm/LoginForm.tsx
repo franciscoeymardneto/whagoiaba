@@ -4,14 +4,17 @@ import Card from "../../../../components/Card/Card"
 import LanguageSelector from "../../../../components/i18n/LanguageSelector"
 import MailInput from "../../../../components/Inputs/MailInput"
 import PasswordInput from "../../../../components/Inputs/PasswordInput"
-import { FormEvent } from "react"
+import { FormEvent, useState } from "react"
 
 const LoginForm = (): JSX.Element => {
     const { t } = useTranslation()
+    
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        console.log(e.target)
+   
     }
     return (
         <div className="">
@@ -25,11 +28,19 @@ const LoginForm = (): JSX.Element => {
 
                 <form onSubmit={handleSubmit}>
                     <div className="m-4">
-                    <MailInput placeholder={t('user.email')}/>
+                    <MailInput 
+                        placeholder={t('user.email')}
+                        value={email}
+                        onChange={(value) => setEmail(value)}
+                    />
 
                     </div>
                     <div className="m-4">
-                    <PasswordInput placeholder={t('user.password')}/>
+                    <PasswordInput 
+                        placeholder={t('user.password')}
+                        value={password}
+                        onChange={(value) => setPassword(value)}
+                    />
 
                     </div>
                     <div className="m-4">
