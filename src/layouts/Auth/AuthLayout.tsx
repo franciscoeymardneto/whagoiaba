@@ -1,6 +1,10 @@
+import { Outlet } from "react-router-dom"
+
 const AuthLayout = () => {
     return(
-        <p>Auth Layout</p>
+        <>
+            <Outlet/>
+        </>
     )
 }
 

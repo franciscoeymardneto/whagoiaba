@@ -1,12 +1,21 @@
-import { useTranslation } from "react-i18next"
-import LanguageSelector from "../../components/i18n/LanguageSelector"
+import { useEffect } from "react"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 
 const NoAuthLayout = (): JSX.Element => {
-    const {t} = useTranslation()
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        if (location.pathname === "/") {
+            navigate('/login')
+        }
+    }, [])
+
+  
+
     return(
         <>
-        <LanguageSelector/>
-        <p>{t('greeting.hello')}</p>
+        <Outlet/>
         </>
     )
 }
