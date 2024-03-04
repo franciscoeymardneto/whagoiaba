@@ -1,0 +1,15 @@
+.languages-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+}
+.language {
+    width: 20px;
+    margin: 5px;
+    cursor: pointer;
+    position: relative;
+}
+.language-hint {
+    position: absolute
+}
