@@ -5,6 +5,8 @@ import LanguageSelector from "../../../../components/i18n/LanguageSelector"
 import MailInput from "../../../../components/Inputs/MailInput"
 import PasswordInput from "../../../../components/Inputs/PasswordInput"
 import { FormEvent, useState } from "react"
+import { Login } from "../../../../services/login"
+import { Notify } from "../../../../heslpers/notify"
 
 const LoginForm = (): JSX.Element => {
     const { t } = useTranslation()
@@ -12,9 +14,15 @@ const LoginForm = (): JSX.Element => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
-   
+
+
+        await Login({
+            email,
+            password
+        })
+ 
     }
     return (
         <div className="">
