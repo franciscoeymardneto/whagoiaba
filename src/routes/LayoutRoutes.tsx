@@ -1,8 +1,9 @@
-import { RouteObject, redirect } from "react-router-dom";
+import { RouteObject} from "react-router-dom";
 import NoAuthLayout from "../layouts/NoAuth/NoAuthLayout";
 import LoginPage from "../pages/login/loginPage";
+import AuthLayout from "../layouts/Auth/AuthLayout";
 
-export const NoAuthRoutes: RouteObject[] = [
+export const LayoutRoutes: RouteObject[] = [
     {
         path: "/",
         element: <NoAuthLayout/>,
@@ -14,5 +15,9 @@ export const NoAuthRoutes: RouteObject[] = [
 
             }
         ]
+    },
+    {
+        path: "/home",
+        element: <AuthLayout/>,
     }
 ]

@@ -1,9 +1,33 @@
-import { Outlet } from "react-router-dom"
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
+import { Outlet, useNavigate } from "react-router-dom"
+import Sidebar from "./components/sidebar/Sidebar"
+import TopBar from "./components/Topbar/Topbar"
 
 const AuthLayout = () => {
-    return(
+    const navigate = useNavigate()
+    const isLoggedIn = useSelector((session: any) => session.auth.isLoggedIn)
+
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/login')
+        }
+    }, [isLoggedIn])
+
+    return (
         <>
-            <Outlet/>
+            <div className="h-screen w-screen flex">
+                <Sidebar/>
+                <div className="w-full">
+                    <TopBar/>
+                    <div>
+                        Content
+                        <Outlet />
+                    </div>
+
+                </div>
+            </div>
         </>
     )
 }
