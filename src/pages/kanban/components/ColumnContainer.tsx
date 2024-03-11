@@ -1,15 +1,57 @@
 import { FC } from "react"
-import { Column, Id } from "../types"
+import { Column, Id, Task } from "../types"
 import { TrashIcons } from "../icons/TrashIcons"
+import { useSortable } from "@dnd-kit/sortable"
+import { CSS } from "@dnd-kit/utilities"
+import { PlusIcon } from "../icons/PlusIcons"
 
 interface Props {
     column: Column
-    deleteColumn: (id: Id)=> void
+    deleteColumn: (id: Id) => void
+
+    tasks: Task[]
+    createTask: (columnId: Id) => void
 }
-const ColumnContainer: FC<Props> = ({ column, deleteColumn }) => {
-   
+const ColumnContainer: FC<Props> = ({ column, deleteColumn, createTask, tasks }) => {
+
+    const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
+        id: column.id,
+        data: {
+            type: "Column",
+            column
+        }
+    })
+
+    const style = {
+        transition,
+        transform: CSS.Transform.toString(transform)
+    }
+
+    if (isDragging) {
+        return <div
+            ref={setNodeRef}
+            style={style}
+            {...attributes}
+            {...listeners}
+            className="
+        bg-slate-950
+        w-[350px]
+        h-[500px]
+        max-h-[500px]
+        rounded-md
+        flex
+        flex-col
+        opacity-60
+        border-2
+        border-rose-500
+       "
+        ></div>
+    }
+
     return (
         <div
+            ref={setNodeRef}
+            style={style}
             className="
            bg-slate-950
            w-[350px]
@@ -21,6 +63,8 @@ const ColumnContainer: FC<Props> = ({ column, deleteColumn }) => {
           "
         >
             <div
+                {...attributes}
+                {...listeners}
                 className="
             bg-slate-900
             text-md
@@ -57,10 +101,10 @@ const ColumnContainer: FC<Props> = ({ column, deleteColumn }) => {
                     {column.title}
                 </div>
                 <button
-                onClick={() => {
-                    deleteColumn(column.id)
-                }}
-                className="
+                    onClick={() => {
+                        deleteColumn(column.id)
+                    }}
+                    className="
                 stroke-gray-500
                 hover:stroke-white
                 hover:bg-slate-900
@@ -69,14 +113,54 @@ const ColumnContainer: FC<Props> = ({ column, deleteColumn }) => {
                 py-1
                 "
                 >
-                    <TrashIcons/>
+                    <TrashIcons />
                 </button>
 
             </div>
 
-            <div className="flex flex-grow text-white">
-                Content
+            <div className="
+            flex 
+            flex-grow 
+            flex-col 
+            gap-4 
+            p-2 
+            text-white
+            overflow-x-hidden
+            overflow-y-auto
+            ">
+                {
+                    tasks.map((task, i) => {
+                        return (
+                            <div key={i}
+                            
+                            >
+                                {task.content}
+                            </div>
+                        )
+                    })
+                }
             </div>
+
+            <button className="
+            flex
+            gap-2
+            items-center
+            border-2
+            border-slate-900
+            rounded-md
+            p-4
+            border-x-slate-900
+            hover:bg-slate-950
+            hover:text-rose-500
+            active:bg-black
+            "
+                onClick={() => {
+                    createTask(column.id)
+                }}
+            >
+                <PlusIcon />
+                Add Task
+            </button>
         </div>
     )
 }
