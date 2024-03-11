@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux"
-import { Outlet, useLocation, useNavigate } from "react-router-dom"
+import {  useLocation, useNavigate } from "react-router-dom"
 
 import kanbanIcon from '/icons/sidebar/kanban.svg'
+import botIcon from '/icons/sidebar/bot.svg'
 
 const Sidebar = () => {
     const sidebarOpen = useSelector((session: any) => session.sidebar.isOpen)
@@ -9,13 +10,16 @@ const Sidebar = () => {
 
     const pathname = useLocation().pathname
 
-    console.log(location)
-
     const menus = [
         {
             label: 'Kanban',
             icon: kanbanIcon,
             route: '/home/kanban'
+        },
+        {
+            label: 'ChatBot',
+            icon: botIcon,
+            route: '/home/bot'
         }
     ]
 
@@ -29,13 +33,14 @@ const Sidebar = () => {
 
                 <div className="overflow-hidden">
 
-                    <ul>
+                    <ul className="">
                         {
                             menus.map((menu, i) => (
                                 <li key={i} className={`
                                     ${pathname === menu.route ? 'border-l-4 border-gray-100' : 'cursor-pointer hover:opacity-55'}
                                      
                                     flex h-10 items-center text-white
+                                    mb-4
                                 `}
                                 onClick={() => navigate(menu.route)}
                                 >
