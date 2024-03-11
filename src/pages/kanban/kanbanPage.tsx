@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { PlusIcon } from './icons/PlusIcons';
-import { Column } from './types';
+import { Column, Id } from './types';
 import ColumnContainer from './components/ColumnContainer';
 
 const initialData = {
@@ -44,6 +44,12 @@ const KanbanPage = () => {
        setColumns([...columns,newColumn])
     }
 
+    function deleteColumn(id: Id) {
+        const newColumns = columns.filter(col => col.id !== id)
+
+        setColumns(newColumns)
+    }
+
     return (
         <div className="
             m-auto
@@ -58,7 +64,11 @@ const KanbanPage = () => {
             <div className='m-auto flex gap-2'>
                 <div className='flex gap-4'>
                    {columns.map((col,i) => (
-                    <ColumnContainer key={i} column={col}/>
+                    <ColumnContainer 
+                    key={i} 
+                    column={col}
+                    deleteColumn={() => deleteColumn(col.id)}
+                    />
                    ))}
                 </div>
                 <button
