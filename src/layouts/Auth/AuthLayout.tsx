@@ -21,8 +21,7 @@ const AuthLayout = () => {
                 <Sidebar/>
                 <div className="w-full">
                     <TopBar/>
-                    <div className="block">
-                        Content
+                    <div className="py-10">
                         <Outlet />
                     </div>
 

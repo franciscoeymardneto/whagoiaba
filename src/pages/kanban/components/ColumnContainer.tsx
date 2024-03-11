@@ -1,7 +1,7 @@
-import { FC } from "react"
+import { FC, useMemo } from "react"
 import { Column, Id, Task } from "../types"
 import { TrashIcons } from "../icons/TrashIcons"
-import { useSortable } from "@dnd-kit/sortable"
+import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { PlusIcon } from "../icons/PlusIcons"
 import TaskCard from "./TaskCard"
@@ -15,6 +15,8 @@ interface Props {
     deleteTask: (taskId: Id) => void
 }
 const ColumnContainer: FC<Props> = ({ column, deleteColumn, createTask, deleteTask, tasks }) => {
+
+    const tasksIds = useMemo(() => tasks.map(task => task.id), [tasks]);
 
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: column.id,
@@ -49,8 +51,6 @@ const ColumnContainer: FC<Props> = ({ column, deleteColumn, createTask, deleteTa
        "
         ></div>
     }
-
-
 
     return (
         <div
@@ -132,6 +132,7 @@ const ColumnContainer: FC<Props> = ({ column, deleteColumn, createTask, deleteTa
             overflow-x-hidden
             overflow-y-auto
             ">
+                <SortableContext items={tasksIds}>
                 {
                     tasks.map((task, i) => {
                         return (
@@ -139,6 +140,7 @@ const ColumnContainer: FC<Props> = ({ column, deleteColumn, createTask, deleteTa
                         )
                     })
                 }
+                </SortableContext>
             </div>
 
             <button className="

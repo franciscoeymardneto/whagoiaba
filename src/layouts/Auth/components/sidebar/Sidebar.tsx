@@ -22,7 +22,7 @@ const Sidebar = () => {
 
     return (
         <>
-            <aside className={`${sidebarOpen ? 'w-14' : 'w-0'}  hover:w-40 duration-300 bg-green-800 relative`}>
+            <aside className={`${sidebarOpen ? 'w-14' : 'w-0'}  hover:w-40 duration-300 bg-green-800 relative h-screen`}>
                 <div className="flex items-center justify-center h-16 w-full p-2 mb-3">
                     <img src="/logos/logo.png" alt="" className="filter brightness-0 invert grayscale w-9" />
                 </div>

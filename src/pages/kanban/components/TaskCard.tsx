@@ -1,6 +1,8 @@
 import { FC, useState } from "react";
 import { Id, Task } from "../types";
 import { TrashIcons } from "../icons/TrashIcons";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities"
 
 interface Props {
     task: Task
@@ -9,8 +11,51 @@ interface Props {
 }
 const TaskCard: FC<Props> = ({ task, deleteTask }): JSX.Element => {
     const [mouseIsOver, setMouseIsOver] = useState(false)
+
+    const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
+        id: task.id,
+        data: {
+            type: "Task",
+            task
+        }
+    })
+
+    const style = {
+        transition,
+        transform: CSS.Transform.toString(transform)
+    }
+
+    if (isDragging) {
+        return <div
+        ref={setNodeRef}
+        style={style}
+        className="
+        bg-slate-900
+        p-2.5s
+        h-[100px]
+        min-h-[100px]
+        items-center
+        flex
+        text-left
+        text-white
+        rounded-xl
+        border-2
+        border-rose-500
+        opacity-30
+        cursor-grab
+        relative
+        "
+
+        ></div>
+    }
+
+
     return (
         <div
+        ref={setNodeRef}
+        style={style}
+        {...attributes}
+        {...listeners}
             className="
         bg-slate-900
         p-2.5
