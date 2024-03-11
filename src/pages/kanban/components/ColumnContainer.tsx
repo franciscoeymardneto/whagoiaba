@@ -4,6 +4,7 @@ import { TrashIcons } from "../icons/TrashIcons"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { PlusIcon } from "../icons/PlusIcons"
+import TaskCard from "./TaskCard"
 
 interface Props {
     column: Column
@@ -11,8 +12,9 @@ interface Props {
 
     tasks: Task[]
     createTask: (columnId: Id) => void
+    deleteTask: (taskId: Id) => void
 }
-const ColumnContainer: FC<Props> = ({ column, deleteColumn, createTask, tasks }) => {
+const ColumnContainer: FC<Props> = ({ column, deleteColumn, createTask, deleteTask, tasks }) => {
 
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: column.id,
@@ -47,6 +49,8 @@ const ColumnContainer: FC<Props> = ({ column, deleteColumn, createTask, tasks })
        "
         ></div>
     }
+
+
 
     return (
         <div
@@ -131,11 +135,7 @@ const ColumnContainer: FC<Props> = ({ column, deleteColumn, createTask, tasks })
                 {
                     tasks.map((task, i) => {
                         return (
-                            <div key={i}
-                            
-                            >
-                                {task.content}
-                            </div>
+                            <TaskCard key={i} task={task} deleteTask={deleteTask}/>
                         )
                     })
                 }
@@ -153,6 +153,7 @@ const ColumnContainer: FC<Props> = ({ column, deleteColumn, createTask, tasks })
             hover:bg-slate-950
             hover:text-rose-500
             active:bg-black
+            text-white
             "
                 onClick={() => {
                     createTask(column.id)

@@ -17,7 +17,7 @@ const AuthLayout = () => {
 
     return (
         <>
-            <div className="h-screen w-full flex">
+            <div className="h-screen w-full flex overflow-x-hidden">
                 <Sidebar/>
                 <div className="w-full">
                     <TopBar/>

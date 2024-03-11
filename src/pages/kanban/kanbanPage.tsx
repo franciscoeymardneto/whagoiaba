@@ -66,10 +66,16 @@ const KanbanPage = () => {
        const newTask: Task = {
         id: generateId(),
         columnId,
-        content: `Task ${tasks.length - 1}`
+        content: `Task ${tasks.length + 1}`
        }
 
        setTasks([...tasks,newTask])
+    }
+
+    function deleteTask (taskId: Id) {
+        const newTasks = tasks.filter(task => task.id !== taskId)
+
+        setTasks(newTasks)
     }
 
     function onDragStart(event: DragStartEvent) {
@@ -123,7 +129,8 @@ const KanbanPage = () => {
                                     column={col}
                                     deleteColumn={() => deleteColumn(col.id)}
                                     createTask={createTask}
-                                    tasks={tasks.filter(task => task.id === col.id)}
+                                    tasks={tasks.filter(task => task.columnId === col.id)}
+                                    deleteTask={deleteTask}
                                 />
                             ))}
                         </SortableContext>
@@ -158,9 +165,10 @@ const KanbanPage = () => {
                         activeColumn && (
                             <ColumnContainer
                                 column={activeColumn}
-                                tasks={tasks.filter(task => task.id === activeColumn.id)}
+                                tasks={tasks.filter(task => task.columnId === activeColumn.id)}
                                 deleteColumn={deleteColumn}
                                 createTask={createTask}
+                                deleteTask={deleteTask}
                             />
                         )
                     }
