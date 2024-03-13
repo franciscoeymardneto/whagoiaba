@@ -17,11 +17,11 @@ const AuthLayout = () => {
 
     return (
         <>
-            <div className="h-screen w-full flex overflow-x-hidden">
+            <div className=" w-full h-full flex overflow-x-hidden">
                 <Sidebar/>
                 <div className="w-full">
                     <TopBar/>
-                    <div className="py-10">
+                    <div className="py-10 h-full">
                         <Outlet />
                     </div>
 
